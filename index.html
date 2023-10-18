@@ -1,12 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+    Author: Erick Hernandez
+    Project: MatchmakerWeb
+-->
 <head>
-  <title>Matchmaker</title>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Matchmaker</title>
 </head>
+
 <body>
+    <h1>Matchmaker</h1>
+    <p>Instructions...</p>
+<!-- Reference for HTML "option" tabs/fields: https://www.w3schools.com/tags/tag_option.asp-->
+<label>I like corridos</label><br>
+<select id="question1">
+    <option value="5">Strongly Agree</option>
+    <option value="4"> Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+<br><br><br>
+<label>Tory Lanez should be a free man</label><br>
+<select id="question2">
+    <option value="5">Strongly Agree</option>
+    <option value="4"> Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+<br><br><br>
+<label>Pancakes are better than waffles</label><br>
+<select id="question3">
+    <option value="5">Strongly Agree</option>
+    <option value="4"> Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+<br><br><br>
+<label>80's and 90's JDM cars are better than 80's and 90's American muscle</label><br>
+<select id="question4">
+    <option value="5">Strongly Agree</option>
+    <option value="4"> Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+<br><br><br>
+<label>FC Barcelona over Real Madrid</label><br>
+<select id="question5">
+    <option value="5">Strongly Agree</option>
+    <option value="4"> Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+<br><br><br>
+<label>Taylor Swift over Kanye West</label><br>
+<select id="question6">
+    <option value="-30">Strongly Agree</option>
+    <option value="-30"> Agree</option>
+    <option value="0">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+<br><br><br>
+<button onclick="calculateCompatibility()">Calculate Compatibility</button>
+<p id="compatibility"></p>
+<p id="message"></p>
+<script>
+console.log("Starting Matchmaker...");
 
-  <h1>Version 2</h1>
+function calculateCompatibility() {
+    console.log("calculateCompatibility()");
 
+const DESIRED_RESPONSE = [
+    5, //*strongly agree*//
+    5, //*strongly agree*//
+    2, //*disagree*//
+    5, //*strongly agree*//
+    5, //*strongly agree*//
+    1 //*strongly disagree*//
+]
+
+const MAX_SCORE = 55;
+
+//question weights
+const question1Weight =2;//important*//
+const question2Weight =3; //*extremely important*//
+const question3Weight =1; //*not very important*//
+const question4Weight =1; //*not very important*//
+const question5Weight =1; //*not very important*//
+const question6Weight =3; //*extremely important*//
+
+//get response values
+   let question1Response = document.getElementById("question1").selectedOptions[0].value;
+   let question2Response = document.getElementById("question2").selectedOptions[0].value;
+   let question3Response = document.getElementById("question3").selectedOptions[0].value;
+   let question4Response = document.getElementById("question4").selectedOptions[0].value;
+   let question5Response = document.getElementById("question5").selectedOptions[0].value;
+   let question6Response = document.getElementById("question6").selectedOptions[0].value;
+
+//show values in console
+   console.log("Question 1 Answers;")
+   console.log(document.getElementById("question1").selectedOptions[0].text);
+   console.log(document.getElementById("question1").selectedOptions[0].value);
+   console.log(question1Response);
+
+   console.log("Question 2 Answers;")
+   console.log(document.getElementById("question2").selectedOptions[0].text);
+   console.log(document.getElementById("question2").selectedOptions[0].value);
+   console.log(question2Response);
+
+   console.log("Question 3 Answers;")
+   console.log(document.getElementById("question3").selectedOptions[0].text);
+   console.log(document.getElementById("question3").selectedOptions[0].value);
+   console.log(question3Response);
+
+   console.log("Question 4 Answers;")
+   console.log(document.getElementById("question4").selectedOptions[0].text);
+   console.log(document.getElementById("question4").selectedOptions[0].value);
+   console.log(question4Response);
+
+   console.log("Question 5 Answers;")
+   console.log(document.getElementById("question5").selectedOptions[0].text);
+   console.log(document.getElementById("question5").selectedOptions[0].value);
+   console.log(question5Response);
+
+   console.log("Question 6 Answers;")
+   console.log(document.getElementById("question6").selectedOptions[0].text);
+   console.log(document.getElementById("question6").selectedOptions[0].value);
+   console.log(question6Response);
+   
+   //calculate compatibility
+    let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
+    let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1]);
+    let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
+    let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
+    let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
+    let question6Compatibility = 5 - Math.abs(question6Response - DESIRED_RESPONSE[5]);
+    
+    console.log(question1Compatibility);
+    console.log(question2Compatibility);
+    console.log(question3Compatibility);
+    console.log(question4Compatibility);
+    console.log(question5Compatibility);
+    console.log(question6Compatibility);
+    
+
+    //Total compatibility, weighted questions
+    let totalcompatibility = (question1Compatibility * question1Weight) + 
+    (question2Compatibility * question2Weight) + 
+    (question3Compatibility * question3Weight) + 
+    (question4Compatibility * question4Weight) + 
+    (question5Compatibility * question5Weight) +  
+    (question6Compatibility * question6Weight)
+
+    //totalCompatibility to %
+    totalcompatibility *= 100/MAX_SCORE;
+    totalcompatibility = Math.round(totalcompatibility);
+    console.log("totalcompatibility="+ totalcompatibility);
+
+   document.getElementById("compatibility").innerHTML = "Your compatibility is: " + totalcompatibility + "%";
+if (totalcompatibility < 0) {
+    document.getElementById("message").innerHTML = "Kanye is the GOAT, get away from me";
+}
+else if (totalcompatibility <= 69) {
+    document.getElementById("message").innerHTML = "This ain't gonna work.";
+}
+else if (totalcompatibility <= 80) {
+    document.getElementById("message").innerHTML = "You ight, we can make it work";
+}
+else if (totalcompatibility <= 99) {
+    document.getElementById("message").innerHTML = "You valid, we gotta hang out soon";
+}
+else if (totalcompatibility = 100) {
+    document.getElementById("message").innerHTML = "You're literally me, give me your number, let's go out sometime";
+}
+}
+</script>
 </body>
+ 
 </html>
