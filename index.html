@@ -7,11 +7,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Matchmaker</title>
+    <style>
+    body {
+      background-color:rgb(20, 20, 30);
+      font-family:Georgia;
+      color: blueviolet;
+      text-align: center;
+      }
+
+    h1 {
+      font-family:cursive;
+      color:blanchedalmond;
+      font-size: 45px;
+      }
+
+    p {
+      font-size: 18px;
+      }
+
+    label {
+      font-weight: bold;
+      font-size: 17px;
+      color:blueviolet;
+      }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 5px solid blueviolet;
+      border-radius: 5px;
+      font-size: 15px;
+      background-color:black;
+      color:fuchsia;
+      font-family: 'Trebuchet MS';
+      }
+
+    select:hover {
+      background-color:darkmagenta;
+      }
+
+    button {
+      background-color: fuchsia;
+      font-weight: bold;
+      color:blueviolet;
+      border: 5px solid blueviolet;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 18px;
+      font-family: Trebuchet MS;
+        }
+
+    button:hover {
+      background-color: darkmagenta;
+      }
+
+    #compatibility {
+      font-size: 24px;
+      margin-top: 20px;
+      }
+
+    #message {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+      }
+    </style>
 </head>
 
 <body>
     <h1>Matchmaker</h1>
-    <p>Instructions...</p>
 <!-- Reference for HTML "option" tabs/fields: https://www.w3schools.com/tags/tag_option.asp-->
 <label>I like corridos</label><br>
 <select id="question1">
@@ -70,6 +134,7 @@
 <button onclick="calculateCompatibility()">Calculate Compatibility</button>
 <p id="compatibility"></p>
 <p id="message"></p>
+<p id="results"></p>
 <script>
 console.log("Starting Matchmaker...");
 
@@ -80,7 +145,7 @@ const DESIRED_RESPONSE = [
     5, //*strongly agree*//
     5, //*strongly agree*//
     2, //*disagree*//
-    5, //*strongly agree*//
+    4, //*agree*//
     5, //*strongly agree*//
     1 //*strongly disagree*//
 ]
@@ -88,12 +153,12 @@ const DESIRED_RESPONSE = [
 const MAX_SCORE = 55;
 
 //question weights
-const question1Weight =2;//important*//
-const question2Weight =3; //*extremely important*//
-const question3Weight =1; //*not very important*//
-const question4Weight =1; //*not very important*//
-const question5Weight =1; //*not very important*//
-const question6Weight =3; //*extremely important*//
+const question1Weight =2;//* important *//
+const question2Weight =3; //* extremely important *//
+const question3Weight =1; //* not very important *//
+const question4Weight =1; //* not very important *//
+const question5Weight =1; //* not very important *//
+const question6Weight =3; //* extremely important *//
 
 //get response values
    let question1Response = document.getElementById("question1").selectedOptions[0].value;
@@ -179,6 +244,9 @@ else if (totalcompatibility <= 99) {
 else if (totalcompatibility = 100) {
     document.getElementById("message").innerHTML = "You're literally me, give me your number, let's go out sometime";
 }
+    document.getElementById("results").innerHTML = "Question 1: " + question1Compatibility + "/5 <br> Question 2: " +
+    question2Compatibility + "/5 <br> Question 3: " + question3Compatibility + "/5 <br> Question 4: " + question4Compatibility +
+    "/5 <br> Question 5: " + question5Compatibility + "/5 <br> Question 6: " + question6Compatibility + "/5";
 }
 </script>
 </body>
